@@ -25,7 +25,7 @@ if __name__ == "__main__":
             
             np.concatenate([result, np.zeros(n[i], dtype = "int16")])
             
-        result = np.concatenate((result, delayArray))
+        result = np.concatenate([result, delayArray])
     
     plt.figure("Eco", figsize=(15,8))
     
