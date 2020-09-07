@@ -13,3 +13,8 @@ plt.title('Exponencial (a = 2)')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.grid(True)
+
+with open("exponencial.pcm", "wb") as new_file:
+    for x in s:
+        new_file.write(x)
+new_file.close()

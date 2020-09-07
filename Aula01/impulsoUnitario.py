@@ -13,3 +13,8 @@ plt.title('Impulso Unitario')
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.grid(True)
+
+with open("impulsoUnitario.pcm", "wb") as new_file:
+    for x in s:
+        new_file.write(x)
+new_file.close()
