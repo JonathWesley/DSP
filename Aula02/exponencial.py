@@ -4,7 +4,7 @@ plt.close('all')
 
 n = np.arange(0, 30, 1)
 A = 1
-a = 2
+a = 0.5
 
 s = A*a**n
 

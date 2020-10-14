@@ -37,17 +37,6 @@ plt.stem(np.convolve(xDegrau, h))
 plt.xticks(np.arange(-1, 12.1, 1))
 plt.yticks(np.arange(0, 1.1, 0.2))
 
-# Seno
-xVetor = [1, 0.5, 0.25, 0.125]
-
-plt.subplot(313)
-plt.title("Vetor X")
-plt.xlabel("n")
-plt.ylabel("x[n]")
-plt.grid(1)
-plt.stem(np.convolve(xVetor, h))
-plt.xticks(np.arange(-1, 10.1, 1))
-plt.yticks(np.arange(0, 0.5, 0.1))
 
 
 plt.tight_layout()

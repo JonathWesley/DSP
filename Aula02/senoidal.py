@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 plt.close('all')
 
 n = np.arange(-20, 20, 1)
-f = 100
+f = 400
 Fs = 8000
 Ts = 1/Fs
 

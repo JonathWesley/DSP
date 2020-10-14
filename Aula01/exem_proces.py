@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-@author: Andriy
+@author: Jonath
 """
 
 import numpy as np

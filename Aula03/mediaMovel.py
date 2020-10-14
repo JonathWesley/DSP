@@ -8,7 +8,7 @@ def moving_average(a, n) :
     return result[n - 1:]
 
 if __name__ == "__main__":
-    with open ('wn.pcm', 'rb') as f:
+    with open ('Sweep10_3600.pcm', 'rb') as f:
         buffer = f.read ()
         data = np.frombuffer (buffer, dtype = 'int16')
         left = data [:: 2]
@@ -16,7 +16,7 @@ if __name__ == "__main__":
         
     keys = [4, 8, 16, 32, 64, 128, 256, 512, 1024]  
     
-    size = int(input("Digite o tamanho (exponencial de 2): "))
+    size = int(input("Digite o tamanho (potencia de 2): "))
     
     result = moving_average(data, size)
     plt.figure(figsize=[15, 10])
