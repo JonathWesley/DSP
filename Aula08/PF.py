@@ -16,8 +16,8 @@ if __name__ == '__main__':
     saida = 0
     
     #
-    FcA = 2000
     FcB = 3000
+    FcA = 2000
     Fs = 8000
     
     #Calculando Omega
@@ -28,10 +28,10 @@ if __name__ == '__main__':
     F1 = 2 * Fs     #16000
     
     # coeficientes
-    aA = wcA/(F1+wcA)
-    bA = (wcA-F1)/(F1+wcA)
     aB = wcB/(F1+wcB)
     bB = (wcB-F1)/(F1+wcB)
+    aA = wcA/(F1+wcA)
+    bA = (wcA-F1)/(F1+wcA)
     
     read_path = "Sweep10_3600.pcm"
     with open(read_path, 'rb') as f:
@@ -39,7 +39,7 @@ if __name__ == '__main__':
         data_i = np.frombuffer(buf, dtype='int16')
         data_len = len(data_i)
     
-    data_o = PB(data_i, data_len, saida, media_buf, aA, bA) * PA(data_i, data_len, saida, media_buf, aB, bB)
+    data_o = PB(data_i, data_len, saida, media_buf, aB, bB) * PA(data_i, data_len, saida, media_buf, aA, bA)
     
     print("Valor de aA: " + str(aA))
     print("Valor de bA: " + str(bA))
