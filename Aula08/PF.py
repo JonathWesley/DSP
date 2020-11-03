@@ -16,8 +16,8 @@ if __name__ == '__main__':
     saida = 0
     
     #
-    FcB = 3000
-    FcA = 2000
+    FcB = 6000
+    FcA = 1000
     Fs = 8000
     
     #Calculando Omega
@@ -39,7 +39,8 @@ if __name__ == '__main__':
         data_i = np.frombuffer(buf, dtype='int16')
         data_len = len(data_i)
     
-    data_o = PB(data_i, data_len, saida, media_buf, aB, bB) * PA(data_i, data_len, saida, media_buf, aA, bA)
+    data_o = np.convolve(PB(data_i, data_len, saida, media_buf, aB, bB), PA(data_i, data_len, saida, media_buf, aA, bA))
+    #data_o = PB(data_i, data_len, saida, media_buf, aB, bB) * PA(data_i, data_len, saida, media_buf, aA, bA)
     
     print("Valor de aA: " + str(aA))
     print("Valor de bA: " + str(bA))
