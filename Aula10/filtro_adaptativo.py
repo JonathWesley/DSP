@@ -9,7 +9,7 @@ wn = np.zeros(N, dtype=np.float64)
 
 mu = 0.0000000001
 
-# Coeficientes de entrada
+# Sistema desconhecido
 with open('coeficientesPB.dat', 'r') as f:
     buf = f.read().replace("\n", "").split(",")
     buf.remove('')
@@ -40,7 +40,7 @@ for i in range(itera):
 
 
 # salva coeficientes
-with open('coeficientesPA.dat', 'w') as f:
+with open('coeficientesFA.dat', 'w') as f:
     for d in wn:
         f.write(str(d.astype(np.float16))+",\n")
 
@@ -56,8 +56,6 @@ plt.xlabel("N")
 plt.ylabel("Amplitude")
 plt.grid(1)
 plt.plot(en)
-#plt.xticks(np.arange(0, 100.1, 20))
-#plt.yticks(np.arange(-15000, 15000.1, 5000))
 
 [w1, h1] = freqz(coef, worN=8000, fs=1)
 [w2, h2] = freqz(wn, worN=8000, fs=1)
@@ -68,8 +66,6 @@ plt.xlabel("N")
 plt.ylabel("Amplitude")
 plt.grid(1)
 plt.plot(coef)
-#plt.plot(w1, abs(h1))
-#plt.plot(w1, 20 * log10(abs(h1)))
 
 plt.subplot(513)
 plt.title("Coeficientes atualizado")
@@ -77,8 +73,6 @@ plt.xlabel("N")
 plt.ylabel("Amplitude")
 plt.grid(1)
 plt.plot(wn)
-#plt.plot(w2, abs(h2))
-#plt.plot(w2, 20 * log10(abs(h2)))
 
 plt.subplot(514)
 plt.title("Saída desejada")
@@ -94,7 +88,7 @@ plt.ylabel("Amplitude")
 plt.grid(1)
 plt.plot(yn)
 
-with open('resultado_fa.pcm', 'wb') as f:
+with open('resultFA.pcm', 'wb') as f:
     yn = np.convolve(wn, buf, mode="same")
     for d in yn:
         f.write(d.astype(np.float16))
