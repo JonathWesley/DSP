@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1606184477 source:c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\main.c
+	<stdio.h>
+	<fcntl.h>
+	<io.h>
+	"coeficientesPB.dat"
+	"coeficientesPA.dat"
+	"coeficientesPF.dat"
+
+1606184742 c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\coeficientespb.dat
+
+1606184755 c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\coeficientespa.dat
+
+1606184784 c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\coeficientespf.dat
+

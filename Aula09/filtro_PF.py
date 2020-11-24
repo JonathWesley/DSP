@@ -11,8 +11,8 @@ def kernelLowPass(M, h, Fc, K = 1):
     return h
         
 Fs  = 8000
-Fc1 = 400
-Fc2 = 800
+Fc1 = 600
+Fc2 = 3000
 Bw = 200
 
 # Normalizando

@@ -18,8 +18,8 @@ FcPF_PA = 600
 Bw = 200
 
 GB = 0.7
-GA = 0.5
-GF = 0.6
+GA = 0.3
+GF = 0.5
 
 # Normalizando
 Bw = Bw / Fs

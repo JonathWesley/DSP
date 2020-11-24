@@ -24,7 +24,9 @@ with open('wn.pcm', 'rb') as f:
 # sinal desejado
 dn = coef.T * xn
 
-# iterações
+# erro
+error = []
+# numero de iterações
 itera = 40000
 for i in range(itera):
     # filtragem
@@ -32,10 +34,12 @@ for i in range(itera):
     
     # estimacao do erro
     en = dn - yn
-    # normaliza
-    en = en / abs(sum(en))
+    
+    #en = en / abs(sum(en))
+    error.append(sum(abs(en)))
+    #print(error[i])
 
-    # adaptacao do vetor de coeficientes
+    # adaptacao do vetor de coeficientes para proxima iteracao
     wn = wn + 2 * mu * en * xn
 
 
@@ -55,7 +59,7 @@ plt.title("Erro")
 plt.xlabel("N")
 plt.ylabel("Amplitude")
 plt.grid(1)
-plt.plot(en)
+plt.plot(error)
 
 [w1, h1] = freqz(coef, worN=8000, fs=1)
 [w2, h2] = freqz(wn, worN=8000, fs=1)
