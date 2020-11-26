@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1606357975 source:c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\filtroadaptativo\main.c
+	<stdio.h>
+	<fcntl.h>
+	<io.h>
+	"coeficientesPB.dat"
+
+1606184742 c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\filtroadaptativo\coeficientespb.dat
+

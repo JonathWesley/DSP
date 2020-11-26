@@ -2,7 +2,7 @@
 #include <fcntl.h>
 #include <io.h>
 
-#define NSAMPLES 320
+#define NSAMPLES 160
 
 int main() {
   FILE * in_file, * out_file;

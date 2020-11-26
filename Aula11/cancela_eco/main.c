@@ -15,13 +15,14 @@ int main() {
   double yn = 0.0;
   double erro = 0.0;
 
-
+  // usuario 1
   /* abre os arquivos de entrada e saida */
   if ((far = fopen("far_apcm.pcm", "rb")) == NULL) {
     printf("\nErro: Nao abriu o arquivo de entrada\n");
     return 0;
   }
 
+  // mistura do usuario 1 e 2
   if ((near = fopen("near_apcm.pcm", "rb")) == NULL) {
     printf("\nErro: Nao abriu o arquivo de entrada\n");
     return 0;
@@ -42,7 +43,7 @@ int main() {
 
     yn = 0;
 
-    // lê far do arquivo
+    // lê far do arquivo / usuario 1
     n_amost = fread( & entrada, sizeof(short), 1, far);
     xn[0] = entrada;
 
@@ -55,6 +56,7 @@ int main() {
     // lê near do arquivo
     fread( & entrada, sizeof(short), 1, near);
     // erro = near - y(n)
+    // erro = usuario 1 - saida
     erro = entrada - yn;
     //printf("Erro: %f\n", erro);
 

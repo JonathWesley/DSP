@@ -48,7 +48,7 @@ for i in range(M):
 hPA = -hPA
 hPA[int(M/2)] += 1
 
-hPF = np.convolve(hPA, hPB)
+hPF = np.convolve(hPA, hPB, 'same')
 
 with open('coeficientesPF.dat', 'w') as f:
     for x in hPF:
