@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1575457502 source:c:\users\leonardo\documents\faculdade\8periodo\processador_digital_de_sinais\trabalho_final\trabalho_final\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1575459286 source:c:\users\leonardo\documents\faculdade\8periodo\processador_digital_de_sinais\trabalho_final\trabalho_final\overdrive_cfloat.c
+	<stdio.h>
+	<stdlib.h>
+
+1575565394 source:c:\users\leonardo\documents\faculdade\8periodo\processador_digital_de_sinais\trabalho_final\trabalho_final\overdrive_cshort.c
+	<stdio.h>
+	<stdlib.h>
+

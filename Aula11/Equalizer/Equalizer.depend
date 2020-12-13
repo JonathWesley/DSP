@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1606355492 source:c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\main.c
+1606413960 source:c:\users\jonat\onedrive - univali\eng. de computacao\8º semestre\processador digital de sinais\dsp\aula11\equalizer\main.c
 	<stdio.h>
 	<fcntl.h>
 	<io.h>

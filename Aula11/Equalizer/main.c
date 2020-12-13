@@ -2,36 +2,28 @@
 #include <fcntl.h>
 #include <io.h>
 
-#define NSAMPLES 160
+#define NUMERO_SAMPLES 160
 
 int main() {
   FILE * in_file, * out_file;
   int i, n, n_amost;
 
   short entrada, saida;
-  short sample[NSAMPLES] = {
+  short sample[NUMERO_SAMPLES] = {
     0x0
   };
 
-  float y_pb;
-  float y_pa;
-  float y_pf;
-  float y;
+  float yPB, yPA, yPF, y, gPB = 0.7, gPF = 0.5, gPA = 0.3;
 
-  float g_pb = 0.7;
-  float g_pf = 0.5;
-  float g_pa = 0.3;
-
-
-  float coef_pb[NSAMPLES] = {
+  float coefPB[NUMERO_SAMPLES] = {
     #include "coeficientesPB.dat"
   };
 
-  float coef_pa[NSAMPLES] = {
+  float coefPA[NUMERO_SAMPLES] = {
     #include "coeficientesPA.dat"
   };
 
-  float coef_pf[NSAMPLES] = {
+  float coefPF[NUMERO_SAMPLES] = {
     #include "coeficientesPF.dat"
   };
 
@@ -46,7 +38,7 @@ int main() {
   }
 
   // zera vetor de amostras
-  for (i = 0; i < NSAMPLES; i++) {
+  for (i = 0; i < NUMERO_SAMPLES; i++) {
     sample[i] = 0;
   }
 
@@ -55,34 +47,34 @@ int main() {
 
     //zera saída do filtro
     y = 0;
-    y_pa = 0;
-    y_pb = 0;
-    y_pf = 0;
+    yPA = 0;
+    yPB = 0;
+    yPF = 0;
 
     //lê dado do arquivo
     n_amost = fread( & entrada, sizeof(short), 1, in_file);
     sample[0] = entrada;
 
     //Convolução e acumulação
-    for (n = 0; n < NSAMPLES; n++) {
-      y_pb += coef_pb[n] * sample[n];
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
+      yPB += coefPB[n] * sample[n];
     }
 
-    for (n = 0; n < NSAMPLES; n++) {
-      y_pa += coef_pa[n] * sample[n];
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
+      yPA += coefPA[n] * sample[n];
     }
 
-    for (n = 0; n < NSAMPLES; n++) {
-      y_pf += coef_pf[n] * sample[n];
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
+      yPF += coefPF[n] * sample[n];
     }
 
 
     //desloca amostra
-    for (n = NSAMPLES - 1; n > 0; n--) {
+    for (n = NUMERO_SAMPLES - 1; n > 0; n--) {
       sample[n] = sample[n - 1];
     }
 
-    y = (y_pa*g_pa) + (y_pb*g_pb) + (y_pf*g_pf);
+    y = (yPA*gPA) + (yPB*gPB) + (yPF*gPF);
 
     saida = (short) y;
 

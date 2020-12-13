@@ -34,7 +34,7 @@ with open('coeficientesPB.dat', 'w') as f:
     for x in h:
         f.write(str(x.astype(np.float16))+",\n")
         
-read_path = "Sweep_3800.pcm"
+read_path = "seno600.pcm"
 with open(read_path, 'rb') as f:
     buf = f.read()
     data_i = np.frombuffer(buf, dtype='int16')

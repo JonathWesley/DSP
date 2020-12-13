@@ -2,23 +2,23 @@
 #include <fcntl.h>
 #include <io.h>
 
-#define NSAMPLES 160
-#define MU 0.000000000005
+#define NUMERO_SAMPLES 160
+#define MU 0.00000000005
 
 int main() {
   FILE *in_file, *out_file, *out_file_error;
   int i, n, n_amost;
 
-  short entrada, saida, saida_erro, xn[NSAMPLES];
+  short entrada, saida, saida_erro, xn[NUMERO_SAMPLES];
 
-  double wn [NSAMPLES];
+  double wn [NUMERO_SAMPLES];
   double dn = 0.0;
   double yn = 0.0;
   double erro = 0.0;
 
   //Carregando os coeficientes
-  float coef[NSAMPLES] = {
-        #include "coeficientesPA.dat" // NSAMPLES
+  float coef[NUMERO_SAMPLES] = {
+        #include "coeficientesPA.dat" // NUMERO_SAMPLES
   };
 
   /* abre os arquivos de entrada e saida */
@@ -37,7 +37,7 @@ int main() {
 
 
   // zera vetor de amostras
-  for (i = 0; i < NSAMPLES; i++) {
+  for (i = 0; i < NUMERO_SAMPLES; i++) {
     // entrada
     xn[i] = 0;
     // coneficientes gerados
@@ -57,13 +57,13 @@ int main() {
 
 
     // convolução da saída do filtro y(n)
-    for (n = 0; n < NSAMPLES; n++) {
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
       // gera saida a partir dos coeficientes gerados pelo filtro
       yn += wn[n] * xn[n];
     }
 
     // convolução do sinal desejado d(n)
-    for (n = 0; n < NSAMPLES; n++) {
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
       // gera a saida do sistema "desconhecido"
       dn += coef[n] * xn[n];
     }
@@ -73,13 +73,13 @@ int main() {
     //printf("Erro: %f\n", erro);
 
     // atualizando os coeficientes do filtro usando lms
-    for (n = 0; n < NSAMPLES; n++) {
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
         // novos coeficientes = coeficientes antigos + taxa de aprendizagem * erro * entrada
         wn[n] = wn[n] + MU * erro * xn[n];
     }
 
     // atualizando o x(n)
-    for (n = NSAMPLES - 1; n > 0; n--) {
+    for (n = NUMERO_SAMPLES - 1; n > 0; n--) {
       // desloca entrada pra pegar proximo primeiro valor
       xn[n] = xn[n - 1];
     }

@@ -2,16 +2,16 @@
 #include <fcntl.h>
 #include <io.h>
 
-#define NSAMPLES 160
+#define NUMERO_SAMPLES 160
 #define MU 0.000000000005
 
 int main() {
   FILE *far, *near,*out_file;
   int i, n, n_amost, n_amost_near;
 
-  short entrada, saida, xn[NSAMPLES];
+  short entrada, saida, xn[NUMERO_SAMPLES];
 
-  double wn [NSAMPLES];
+  double wn [NUMERO_SAMPLES];
   double yn = 0.0;
   double erro = 0.0;
 
@@ -34,7 +34,7 @@ int main() {
 
 
   // zera vetor de amostras
-  for (i = 0; i < NSAMPLES; i++) {
+  for (i = 0; i < NUMERO_SAMPLES; i++) {
     xn[i] = 0;
     wn[i] = 0.0;
   }
@@ -49,7 +49,7 @@ int main() {
 
 
     // convolução da saída do filtro y(n)
-    for (n = 0; n < NSAMPLES; n++) {
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
       yn += wn[n] * xn[n];
     }
 
@@ -57,16 +57,16 @@ int main() {
     fread( & entrada, sizeof(short), 1, near);
     // erro = near - y(n)
     // erro = usuario 1 - saida
-    erro = entrada - yn;
+    erro = entrada - (short)yn;
     //printf("Erro: %f\n", erro);
 
     // atualizando os coeficientes do filtro usando lms
-    for (n = 0; n < NSAMPLES; n++) {
+    for (n = 0; n < NUMERO_SAMPLES; n++) {
         wn[n] = wn[n] + MU * erro * xn[n];
     }
 
     // atualizando o x(n)
-    for (n = NSAMPLES - 1; n > 0; n--) {
+    for (n = NUMERO_SAMPLES - 1; n > 0; n--) {
       xn[n] = xn[n - 1];
     }
 
