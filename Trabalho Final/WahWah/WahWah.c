@@ -9,28 +9,28 @@
 float ff[2] = {0,0}, fb[2] = {0,0};
 
 void biquadWah(fract16 *in, fract16 Fs, float lfo, char Q, char wet, fract16 *out) {
-    // Convert value of LFO to normalized frequency
+    // converte o valor do LFO para normalizar a frequencia
 
     float w0 = 2*PI*lfo/Fs;
-    // Normalize bandwidth
+    // normaliza a largura de banda
     float alpha = sin(w0)/(2*Q);
     float b0 = (1-cos(w0))/2;
-    float a0 = 1+alpha;
     float b1 = 1-cos(w0);
-    float a1 = -2*cos(w0);
     float b2 = (1-cos(w0))/2;
+    float a0 = 1+alpha;
+    float a1 = -2*cos(w0);
     float a2 = 1-alpha;
     // Wet/dry mix
-    char mixPercent = wet; // 0 = only dry, 100 = only wet
+    char mixPercent = wet; // 0 = dry, 100 = wet
     float mix = (float)mixPercent/100;
-    // Store dry and wet signals
+    // guarda o sinal dry
     float drySig = (float)*in;
-    // Low-pass filter
+    // filtro passa baixa
     float wetSig = (b0/a0)*(*in);
     wetSig += (b1/a0)*ff[0] + (b2/a0)*ff[1] - (a1/a0)*fb[0] - (a2/a0)*fb[1];
-    // Blend parallel paths
+    // junta os sinais do dry e wet
     *out = ((1-mix)*drySig + mix*wetSig);
-    // Iterate buffers for next sample
+    // itera o buffer para proxima amostra
     ff[1] = ff[0];
     ff[0] = (float)*in;
     fb[1] = fb[0];
@@ -39,41 +39,53 @@ void biquadWah(fract16 *in, fract16 Fs, float lfo, char Q, char wet, fract16 *ou
 
 int main( void ) {
 	
+	// declara a estrutura para contar os ciclos
 	cycle_stats_t stats;
 	
+	// frequencia de amostragem
 	fract16 Fs = 8000;
+	// periodo de amostragem
     float Ts = 1 / (float)Fs;
     float rate = 0.5;
     fract16 centerFreq = 1500;
     fract16 depth = 1000;
     
-    char Q = 7, wet = 100;
+    // deve ser entre 1 e 500
+    char Q = 7;
+    // deve ser entre 0 e 100
+    char wet = 100;
+    
     fract16 entrada = 0;
-    int tam = 0;
-    	
+    	 
+    // inicializa a estrutura
     CYCLES_INIT(stats);
     
-	//arquivo de entrada e saída
+	// arquivo de entrada e saída
     FILE *f_in, *f_out;
-    f_in = fopen("..\\input.pcm", "rb");
+    f_in = fopen("..\\jazz.pcm", "rb");
     f_out = fopen("..\\output.pcm", "wb");
     if(!f_in || !f_out){
         printf("Erro no carregamento de arquivo");
         return 1;
     }
     
+    // entrada
     fract16 buffer;
     // tam arquivo
+    int tam = 0;
     while(fread(&buffer, sizeof(short), 1, f_in)){
         tam++;
     }
     
-	rewind (f_in); /// VOLTA O CURSOR NO INICIO
+    // volta o cursor para o inicio do arquivo
+	rewind (f_in);
     
     int i = 0;
+    // saida
     fract16 out;
     
     float t = 0;
+    // low-frequency oscillator
     float lfo = 0;
 
     printf("Processando ...\n ");
@@ -81,6 +93,7 @@ int main( void ) {
     for(i = 1; i< tam; i++){
     	fread(&buffer,sizeof(short),1,f_in);
     	
+    	// comeca a contagem de ciclos
     	CYCLES_START(stats);
     	
         t = (i-1) * Ts;
@@ -89,16 +102,18 @@ int main( void ) {
         lfo += centerFreq;
         biquadWah(&buffer, Fs, lfo, Q, wet, &out);
         
+        // para a contagem de ciclos
         CYCLES_STOP(stats);
         
-        fwrite(&out, sizeof(short), 1, f_out); // Funciona
+        fwrite(&out, sizeof(short), 1, f_out);
     }
     
     printf("terminado!\n");
 		
+    // imprime o resultado da contagem de ciclos
     CYCLES_PRINT(stats);
     
-    /**/
+    // fecha os arquivos
     fclose(f_in);
     fclose(f_out);
 	
